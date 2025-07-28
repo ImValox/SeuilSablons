@@ -117,6 +117,14 @@
                 position: relative;
             }
 
+            .label {
+                font-size: 1.5rem;
+                color: #ffffff;
+                text-align: center;
+                margin-bottom: 20px;
+                font-weight: bold;
+            }
+
             .water-level {
                 font-size: 5.5rem;
                 font-weight: bold;
@@ -211,6 +219,14 @@
                 position: relative;
                 max-width: 500px;
                 justify-self: center;
+            }
+
+            .label {
+                font-size: 1.5rem;
+                color: #ffffff;
+                text-align: center;
+                margin-bottom: 20px;
+                font-weight: bold;
             }
 
             .water-level {
@@ -314,6 +330,7 @@
         </div>
 
         <div class="main-display">
+            <div class="label" id="waterLevelLabel">Hauteur d'eau sur le seuil</div>
             <div class="water-level" id="waterLevel">--,--</div>
             <div class="unit" id="unit">mètres</div>
         </div>
@@ -338,6 +355,7 @@
         const translations = {
             fr: {
                 title: "Niveau d'Eau - Port des Sablons",
+                waterLevelLabel: "Hauteur d'eau sur le seuil",
                 unit: "mètres",
                 lastUpdate: "Mise à jour :",
                 systemActive: "🟢 Système actif",
@@ -347,6 +365,7 @@
             },
             en: {
                 title: "Water Level - Port des Sablons",
+                waterLevelLabel: "Water level on the threshold",
                 unit: "meters",
                 lastUpdate: "Last update:",
                 systemActive: "🟢 System active",
@@ -363,6 +382,9 @@
             
             // Mettre à jour le titre de la page
             document.title = translations[currentLanguage].title;
+
+            // Mettre à jour le texte de l'étiquette
+            document.getElementById('waterLevelLabel').textContent = translations[currentLanguage].waterLevelLabel;
             
             // Mettre à jour l'unité
             document.getElementById('unit').textContent = translations[currentLanguage].unit;
@@ -511,6 +533,13 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadSavedLanguage();
             window.waterLevelDisplay = new WaterLevelDisplay();
+
+            // Ajout du switch automatique après 7,5 secondes si la langue est fr
+            setTimeout(() => {
+                if (currentLanguage === 'fr') {
+                    changeLanguage('en');
+                }
+            }, 7500);
         });
 
         // Gestion de l'orientation pour les animations
